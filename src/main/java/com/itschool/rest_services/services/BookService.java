@@ -28,4 +28,22 @@ public class BookService {
     public void deleteBook(String title) {
         repository.deleteByTitle(title);
     }
+    public Book barrowBook(String title){
+        Book book = repository.findByTitle(title);
+        if(book != null && !book.isBorrowed()){
+            book.setBorrowed(true);
+            return book;
+        }
+        return null;
+    }
+    public Book returnBook(String title){
+        Book book = repository.findByTitle(title);
+
+        if (book != null &&book.isBorrowed()){
+            book.setBorrowed(false);
+            return book;
+        }
+        return null;
+    }
+
 }
